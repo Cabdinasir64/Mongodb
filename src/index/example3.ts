@@ -41,7 +41,7 @@ const run = async () => {
         console.log("✅ 1,000,000+ products inserted!");
 
 
-        await products.createIndex({ name: 1 }, { unique: true });
+        await products.createIndex({ name: 1 });
 
         await products.createIndex({ seller: 1 });
 
