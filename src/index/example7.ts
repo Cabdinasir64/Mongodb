@@ -10,38 +10,12 @@ const run = async () => {
 
         const users = db.collection("usersHashed");
 
-        console.log("🚀 Inserting 1,000,000 users with emails...");
-
-        const batchSize = 10000;
-        let bulkData: any[] = [];
-
-        for (let i = 0; i < 1_000_000; i++) {
-            bulkData.push({
-                email: `user${i}@example.com`,
-                name: `User ${i}`,
-                age: Math.floor(Math.random() * 60) + 18,
-            });
-
-            if (bulkData.length === batchSize) {
-                await users.insertMany(bulkData);
-                bulkData.length = 0;
-                console.log(`Inserted ${i + 1} users...`);
-            }
-        }
-
-        if (bulkData.length > 0) {
-            await users.insertMany(bulkData);
-            console.log(`Inserted remaining ${bulkData.length} users`);
-        }
-
-        console.log("✅ 1,000,000 users inserted!");
-
-        console.log("🚀 Creating hashed index on 'email' field...");
-        await users.createIndex({ email: "hashed" });
-        console.log("✅ Hashed index created successfully!");
-
         const emailSearch = await users.find({ email: "user99999@example.com" }).toArray();
-        console.log(`📌 Users with email 'user99999@example.com':`, emailSearch.length);
+        console.log("Search Result:", emailSearch);
+        const emailsearch2 = await users.find({ email: "user88888@example.com" }).toArray();
+        console.log("Search Result:", emailsearch2);
+        const emailsearch3 = await users.find({ email: "user77777@example.com" }).toArray();
+        console.log("Search Result:", emailsearch3);
 
     } catch (error) {
         console.error("Error:", error);
