@@ -22,13 +22,9 @@ const run = async () => {
     await users.insertMany(bulkData);
     console.log("✅ 100,000 users inserted!");
 
-    const query = { name: "Ali" };
+    const stats = await users.find({ name: "Ali" }).explain("executionStats");
+        console.log(JSON.stringify(stats, null, 2));
 
-    console.time("Query without index");
-    const result = await users.find(query).toArray();
-    console.timeEnd("Query without index");
-
-    console.log(`📌 Documents found: ${result.length}`);
   } catch (error) {
     console.error("Error:", error);
   } finally {
