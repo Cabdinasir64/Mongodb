@@ -8,7 +8,6 @@ const run = async () => {
         await client.connect();
         const db = client.db("database1");
 
-        // Create collection for hashed index example
         const users = db.collection("usersHashed");
 
         console.log("🚀 Inserting 1,000,000 users with emails...");
@@ -37,12 +36,10 @@ const run = async () => {
 
         console.log("✅ 1,000,000 users inserted!");
 
-        // Create hashed index on email
         console.log("🚀 Creating hashed index on 'email' field...");
         await users.createIndex({ email: "hashed" });
         console.log("✅ Hashed index created successfully!");
 
-        // Example equality query
         const emailSearch = await users.find({ email: "user99999@example.com" }).toArray();
         console.log(`📌 Users with email 'user99999@example.com':`, emailSearch.length);
 
