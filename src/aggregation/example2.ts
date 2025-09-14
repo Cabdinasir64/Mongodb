@@ -36,7 +36,6 @@ const run = async () => {
 
         console.log("Finished inserting 1,000,000 students");
 
-        // === Aggregation 1: Students per branch with total and average grade ===
         const aggBranch = [
             { $group: { _id: "$branch", totalStudents: { $sum: 1 } } },
             { $sort: { totalStudents: -1 } }
@@ -45,7 +44,6 @@ const run = async () => {
         console.log("Students per branch:");
         console.table(branchResults);
 
-        // === Aggregation 2: Average age per grade ===
         const aggGradeAge = [
             { $group: { _id: "$grade", avgAge: { $avg: "$age" } } },
             { $sort: { _id: 1 } }
@@ -54,7 +52,6 @@ const run = async () => {
         console.log("Average age per grade:");
         console.table(gradeAgeResults);
 
-        // === Aggregation 3: Students count per subject ===
         const aggSubjects = [
             { $unwind: "$subjects" },
             { $group: { _id: "$subjects", count: { $sum: 1 } } },
